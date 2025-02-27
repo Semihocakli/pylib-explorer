@@ -1,0 +1,175 @@
+Metadata-Version: 2.2
+Name: pylib-explorer
+Version: 0.1.0
+Summary: LLM destekli Python kütüphaneleri keşif aracı
+Home-page: https://github.com/username/pylib-explorer
+Author: PyLib Explorer Takımı
+Author-email: example@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: openai>=1.1.0
+Requires-Dist: anthropic>=0.9.0
+Requires-Dist: requests>=2.28.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: tqdm>=4.65.0
+Requires-Dist: importlib-metadata>=6.0.0
+Requires-Dist: packaging>=23.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: flake8>=6.0.0; extra == "dev"
+Requires-Dist: twine>=4.0.0; extra == "dev"
+Requires-Dist: build>=0.10.0; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# PyLib Explorer
+
+PyLib Explorer, Python kütüphanelerini keşfetmek için LLM (Dil Modeli) destekli bir araçtır. Bu kütüphane, rastgele seçilen veya belirtilen Python paketleri hakkında kapsamlı README.md dosyaları oluşturarak, geliştiricilerin yeni kütüphaneleri anlamalarına ve uygulamalarına yardımcı olur.
+
+## Özellikler
+
+- 🔍 Rastgele Python kütüphanesi keşfi
+- 🤖 OpenAI ve Claude LLM entegrasyonları
+- 📚 Detaylı README.md dosyaları oluşturma
+- 🔧 Kod örnekleri ve kullanım senaryoları
+- 📊 Popülerlik bazlı filtreleme
+- 🧩 Kullanımı kolay API ve CLI
+
+## Kurulum
+
+```bash
+pip install pylib-explorer
+```
+
+## Hızlı Başlangıç
+
+### Komut Satırı Kullanımı
+
+**Rastgele bir kütüphane keşfetmek için:**
+
+```bash
+# OpenAI API anahtarınızı çevre değişkeni olarak ayarlayın
+export OPENAI_API_KEY=your_api_key_here
+
+# Rastgele bir kütüphane keşfedin
+pylib-explorer
+```
+
+**Belirli bir kütüphaneyi keşfetmek için:**
+
+```bash
+pylib-explorer --package requests
+```
+
+**Claude API kullanmak için:**
+
+```bash
+export ANTHROPIC_API_KEY=your_anthropic_api_key
+
+pylib-explorer --provider claude --package pandas
+```
+
+### Python Kodu İçinde Kullanım
+
+```python
+from pylib_explorer.core import LibExplorer
+
+# API anahtarınızı doğrudan sağlayabilir veya çevre değişkeni kullanabilirsiniz
+explorer = LibExplorer(api_key="your_api_key_here", provider="openai")
+
+# Rastgele bir paket hakkında README oluşturun
+readme_content = explorer.generate_readme()
+print(f"README dosyası oluşturuldu: {explorer.output_dir}")
+
+# veya belirli bir paket için:
+readme_content = explorer.generate_readme(package_name="requests")
+```
+
+## Komut Satırı Seçenekleri
+
+```
+usage: pylib-explorer [-h] [--package PACKAGE] [--provider {openai,claude}]
+                      [--api-key API_KEY] [--output-dir OUTPUT_DIR]
+                      [--min-downloads MIN_DOWNLOADS] [--verbose]
+
+Seçenekler:
+  -h, --help            Bu yardım mesajını göster ve çık
+  --package PACKAGE, -p PACKAGE
+                        Keşfedilecek Python paketinin adı. Belirtilmezse rastgele bir paket seçilir.
+  --provider {openai,claude}, -m {openai,claude}
+                        Kullanılacak LLM sağlayıcısı ('openai' veya 'claude').
+  --api-key API_KEY, -k API_KEY
+                        LLM sağlayıcısı için API anahtarı. Belirtilmezse çevre değişkeninden alınır.
+  --output-dir OUTPUT_DIR, -o OUTPUT_DIR
+                        README dosyalarının kaydedileceği dizin.
+  --min-downloads MIN_DOWNLOADS, -d MIN_DOWNLOADS
+                        Rastgele seçim için minimum indirme sayısı filtresi.
+  --verbose, -v         Ayrıntılı log çıktısı modunu etkinleştirir.
+```
+
+## API Anahtarlarını Ayarlama
+
+PyLib Explorer, OpenAI ve Claude API'leri için anahtarlar gerektirir. Bu anahtarları şu şekilde sağlayabilirsiniz:
+
+1. **Çevre Değişkenleri:** `OPENAI_API_KEY` veya `ANTHROPIC_API_KEY` çevre değişkenlerini ayarlayın.
+2. **Doğrudan Parametre:** API anahtarlarını doğrudan code veya CLI aracılığıyla sağlayın.
+3. **.env Dosyası:** Projenizin kök dizininde bir `.env` dosyası oluşturun:
+   ```
+   OPENAI_API_KEY=your_openai_api_key
+   ANTHROPIC_API_KEY=your_anthropic_api_key
+   ```
+
+## Geliştirme
+
+### Gereksinimler
+
+- Python 3.7+
+- OpenAI ve/veya Anthropic API anahtarları
+
+### Kurulum
+
+```bash
+git clone https://github.com/username/pylib-explorer.git
+cd pylib-explorer
+pip install -e ".[dev]"
+```
+
+### Testleri Çalıştırma
+
+```bash
+pytest
+```
+
+## Lisans
+
+MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](LICENSE) dosyasına bakın.
+
+## Katkıda Bulunma
+
+Katkılarınızı bekliyoruz! Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını inceleyin.
+
+## İletişim
+
+Sorularınız veya geri bildirimleriniz için [GitHub Issues](https://github.com/username/pylib-explorer/issues) kullanabilirsiniz. 

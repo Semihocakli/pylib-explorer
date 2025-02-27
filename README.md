@@ -40,6 +40,23 @@ print(f"README file created: {explorer.output_dir}")
 readme_content = explorer.generate_readme(package_name="requests")
 ```
 
+```python
+from pylib_explorer.core import LibExplorer
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# You can provide use environment variables
+explorer = LibExplorer(language="en")
+
+# Generate README for a random package
+readme_content = explorer.generate_readme()
+print(f"README file created: {explorer.output_dir}")
+
+# or for a specific package:
+readme_content = explorer.generate_readme(package_name="pytorch")
+```
+
 ### Command Line Usage
 
 **For a random library exploration:**
